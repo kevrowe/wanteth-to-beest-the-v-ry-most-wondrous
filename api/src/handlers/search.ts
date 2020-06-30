@@ -18,7 +18,7 @@ const searchHandler: Handler = async ({ poke, translate }, req, res) => {
   if (pokeError) {
     return handleError(res, 404, `Pokemon Error: ${pokeError.message}`);
   } else if (!flavorText) {
-    return handleError(res, 404, "Pokemon Error: Not found");
+    return handleError(res, 500, "Pokemon Error");
   }
 
   const [translationError, translatedText] = await translate.shakespeare(
