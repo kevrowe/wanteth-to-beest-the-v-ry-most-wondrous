@@ -11,19 +11,6 @@ describe("TranslationClient", () => {
   beforeEach(() => {
     nock.cleanAll();
   });
-  it("should parse the response from a shakespeare request", async () => {
-    nockScope.post("/translate/shakespeare").reply(200, {
-      contents: {
-        translated: mockResponse,
-      },
-    });
-
-    const client = TranslationClient(MOCK_API);
-    const [err, result] = await client.shakespeare("some input");
-
-    expect(result).toBe(mockResponse);
-    expect(err).toBeUndefined();
-  });
   it("should handle non-200 JSON response", async () => {
     const mockError = "Something dun' broke";
     nockScope.post("/translate/shakespeare").reply(400, {
@@ -49,5 +36,18 @@ describe("TranslationClient", () => {
     expect(err).toBeInstanceOf(Error);
     expect(err!.message).toBe("Internal Server Error");
     expect(result).toBeUndefined();
+  });
+  it("should parse the response from a shakespeare request", async () => {
+    nockScope.post("/translate/shakespeare").reply(200, {
+      contents: {
+        translated: mockResponse,
+      },
+    });
+
+    const client = TranslationClient(MOCK_API);
+    const [err, result] = await client.shakespeare("some input");
+
+    expect(result).toBe(mockResponse);
+    expect(err).toBeUndefined();
   });
 });
