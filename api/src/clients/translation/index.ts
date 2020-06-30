@@ -1,6 +1,6 @@
 import "isomorphic-fetch";
 
-interface TranslationClient {
+export interface TranslationClient {
   shakespeare(input: string): Promise<[Error?, string?]>;
 }
 

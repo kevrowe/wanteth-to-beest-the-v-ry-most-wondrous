@@ -10,7 +10,7 @@ describe("PokeClient", () => {
     nock.cleanAll();
   });
   it("should handle non-200 plain response", async () => {
-    nockScope.post("/pokemon-species/charizard").reply(500);
+    nockScope.get("/pokemon-species/charizard").reply(500);
 
     const client = PokeClient(MOCK_API);
     const [err, result] = await client.getDescription("charizard");
@@ -20,7 +20,7 @@ describe("PokeClient", () => {
     expect(result).toBeUndefined();
   });
   it("should fetch successful result from poke API", async () => {
-    nockScope.post("/pokemon-species/charizard").reply(200, mockResponse);
+    nockScope.get("/pokemon-species/charizard").reply(200, mockResponse);
 
     const client = PokeClient(MOCK_API);
     const [err, result] = await client.getDescription("charizard");

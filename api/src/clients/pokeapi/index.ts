@@ -15,7 +15,7 @@ const request = async (
   return [, data];
 };
 
-interface PokeClient {
+export interface PokeClient {
   getDescription: (name: string) => Promise<[Error?, string?]>;
 }
 
@@ -31,7 +31,7 @@ interface SpeciesResponse {
 
 const _getSpecies = async (baseUrl: string, speciesName: string) => {
   return await request(`${baseUrl}/pokemon-species/${speciesName}`, {
-    method: "POST",
+    method: "GET",
   });
 };
 
