@@ -13,7 +13,7 @@ const config = {
 Object.keys(config).forEach((k) => {
   const val = (config as any)[k];
   if (typeof val === "undefined" || !val.trim()) {
-    throw new Error(`Parameter ${k} is required`);
+    throw new Error(`Parameter "${k}" is required`);
   }
 });
 

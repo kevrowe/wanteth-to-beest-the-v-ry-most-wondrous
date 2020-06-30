@@ -1,7 +1,5 @@
 import searchHandler from "./search";
 import { Response, Request } from "express";
-import { PokeClient } from "../clients/pokeapi";
-import { TranslationClient } from "../clients/translation";
 
 const mockedDescription =
   "Spits fire that\nis hot enough to\nmelt boulders.\fKnown to cause\nforest fires\nunintentionally.";
