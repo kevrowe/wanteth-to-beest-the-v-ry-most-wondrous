@@ -25,7 +25,7 @@ const Search = styled.input`
 
 export default () => (
   <Wrapper>
-    <Search type="text" placeholder="Search..." name="search" />
+    <Search type="text" placeholder="🔎 Search..." name="search" />
     <article>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, dicta
       ipsum necessitatibus ducimus repellat, maiores quo voluptates distinctio
