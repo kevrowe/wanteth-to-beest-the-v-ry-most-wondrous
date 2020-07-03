@@ -3,6 +3,7 @@ import TranslationClient from "./clients/translation";
 import PokeClient from "./clients/pokeapi";
 import searchHandler from "./handlers/search";
 import { Clients } from "./handlers/index.types";
+import cors from "cors";
 
 const config = {
   port: process.env.API_PORT!,
@@ -23,6 +24,12 @@ const clients: Clients = {
 };
 
 const api = express();
+
+api.use(
+  cors({
+    origin: "http://localhost:3000",
+  })
+);
 
 api.use("/health/ping", (req, res) => {
   res.send("pong");
