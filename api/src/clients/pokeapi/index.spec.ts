@@ -26,10 +26,11 @@ describe("PokeClient", () => {
     const [err, result] = await client.getDescription("charizard");
 
     expect(err).toBeUndefined();
-    expect(result).toBe(
-      mockResponse.flavor_text_entries.filter(
+    expect(result).toEqual({
+      id: 6,
+      description: mockResponse.flavor_text_entries.filter(
         (e) => e.language.name === "en"
-      )[0].flavor_text
-    );
+      )[0].flavor_text,
+    });
   });
 });

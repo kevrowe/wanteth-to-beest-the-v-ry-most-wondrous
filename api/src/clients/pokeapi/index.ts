@@ -1,5 +1,10 @@
 import "isomorphic-fetch";
 
+export interface Pokemon {
+  id: number;
+  description: string;
+}
+
 const request = async (
   url: string,
   params?: RequestInit
@@ -16,10 +21,11 @@ const request = async (
 };
 
 export interface PokeClient {
-  getDescription: (name: string) => Promise<[Error?, string?]>;
+  getDescription: (name: string) => Promise<[Error?, Pokemon?]>;
 }
 
 interface SpeciesResponse {
+  id: number;
   flavor_text_entries: Array<{
     flavor_text: string;
     language: {
@@ -40,6 +46,7 @@ export default (baseUrl: string): PokeClient => {
 
   return {
     getDescription: async (speciesName) => {
+      // Should add some json validation in here for type safety
       const [error, species] = await getSpecies(speciesName);
 
       if (error) {
@@ -53,7 +60,7 @@ export default (baseUrl: string): PokeClient => {
           }
         })(species?.flavor_text_entries!) || "";
 
-      return [, flavorText];
+      return [, { id: species?.id!, description: flavorText }];
     },
   };
 };
