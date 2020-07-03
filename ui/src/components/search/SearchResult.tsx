@@ -29,6 +29,7 @@ export default ({ isFavourite, toggleFavourite, result }: Props) => (
   <article>
     <Heading>
       <Favourite
+        disabled={result.id === -1}
         isFavourite={isFavourite}
         toggle={toggleFavourite.bind(null, result.name.toLowerCase())}
       />
