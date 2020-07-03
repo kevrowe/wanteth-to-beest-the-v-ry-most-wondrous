@@ -8,7 +8,12 @@ const mockedTranslation =
   "Spits fire yond is hot enow to melt boulders. Known to cause forest fires unintentionally.";
 
 const mockPokeClient = {
-  getDescription: jest.fn().mockResolvedValue([, mockedDescription]),
+  getSpecies: jest
+    .fn()
+    .mockResolvedValue([
+      ,
+      { name: "charizard", description: mockedDescription },
+    ]),
 };
 
 const mockTranslationClient = {
@@ -29,7 +34,7 @@ describe("Search handler", () => {
     const res: Response = { status: jest.fn(), send: jest.fn() } as any;
     const req: Request = { query: { pokemon: "charizard" } } as any;
 
-    mockPokeClient.getDescription.mockResolvedValueOnce([new Error(mockError)]);
+    mockPokeClient.getSpecies.mockResolvedValueOnce([new Error(mockError)]);
 
     await search(req, res, {} as any);
 
@@ -61,7 +66,7 @@ describe("Search handler", () => {
 
     await search(req, res, {} as any);
 
-    expect(mockPokeClient.getDescription).toHaveBeenCalledWith("charizard");
+    expect(mockPokeClient.getSpecies).toHaveBeenCalledWith("charizard");
     expect(mockTranslationClient.shakespeare).toHaveBeenCalledWith(
       mockedDescription
     );

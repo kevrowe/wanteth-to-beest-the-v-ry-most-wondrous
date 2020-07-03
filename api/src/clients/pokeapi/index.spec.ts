@@ -13,7 +13,7 @@ describe("PokeClient", () => {
     nockScope.get("/pokemon-species/charizard").reply(500);
 
     const client = PokeClient(MOCK_API);
-    const [err, result] = await client.getDescription("charizard");
+    const [err, result] = await client.getSpecies("charizard");
 
     expect(err).toBeInstanceOf(Error);
     expect(err!.message).toBe("Internal Server Error");
@@ -23,7 +23,7 @@ describe("PokeClient", () => {
     nockScope.get("/pokemon-species/charizard").reply(200, mockResponse);
 
     const client = PokeClient(MOCK_API);
-    const [err, result] = await client.getDescription("charizard");
+    const [err, result] = await client.getSpecies("charizard");
 
     expect(err).toBeUndefined();
     expect(result).toEqual({

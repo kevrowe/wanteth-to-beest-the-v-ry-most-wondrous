@@ -13,7 +13,7 @@ const searchHandler: Handler = async ({ poke, translate }, req, res) => {
     return handleError(res, 400, 'Missing "pokemon" parameter');
   }
 
-  const [pokeError, flavorText] = await poke.getDescription(species);
+  const [pokeError, flavorText] = await poke.getSpecies(species);
 
   if (pokeError) {
     return handleError(res, 404, `Pokemon Error: ${pokeError.message}`);
@@ -22,7 +22,7 @@ const searchHandler: Handler = async ({ poke, translate }, req, res) => {
   }
 
   const [translationError, translatedText] = await translate.shakespeare(
-    flavorText
+    flavorText.description
   );
 
   if (translationError) {

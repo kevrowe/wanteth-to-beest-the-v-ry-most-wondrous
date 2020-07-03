@@ -22,7 +22,7 @@ const request = async (
 };
 
 export interface PokeClient {
-  getDescription: (name: string) => Promise<[Error?, Pokemon?]>;
+  getSpecies: (name: string) => Promise<[Error?, Pokemon?]>;
 }
 
 interface SpeciesResponse {
@@ -47,7 +47,7 @@ export default (baseUrl: string): PokeClient => {
   const getSpecies = _getSpecies.bind(null, baseUrl);
 
   return {
-    getDescription: async (speciesName) => {
+    getSpecies: async (speciesName) => {
       // Should add some json validation in here for type safety
       const [error, species] = await getSpecies(speciesName);
 
