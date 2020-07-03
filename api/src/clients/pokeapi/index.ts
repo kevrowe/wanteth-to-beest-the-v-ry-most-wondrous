@@ -2,6 +2,7 @@ import "isomorphic-fetch";
 
 export interface Pokemon {
   id: number;
+  name: string;
   description: string;
 }
 
@@ -26,6 +27,7 @@ export interface PokeClient {
 
 interface SpeciesResponse {
   id: number;
+  name: string;
   flavor_text_entries: Array<{
     flavor_text: string;
     language: {
@@ -60,7 +62,10 @@ export default (baseUrl: string): PokeClient => {
           }
         })(species?.flavor_text_entries!) || "";
 
-      return [, { id: species?.id!, description: flavorText }];
+      return [
+        ,
+        { id: species?.id!, name: species?.name!, description: flavorText },
+      ];
     },
   };
 };

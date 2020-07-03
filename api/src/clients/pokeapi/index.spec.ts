@@ -28,6 +28,7 @@ describe("PokeClient", () => {
     expect(err).toBeUndefined();
     expect(result).toEqual({
       id: 6,
+      name: "charizard",
       description: mockResponse.flavor_text_entries.filter(
         (e) => e.language.name === "en"
       )[0].flavor_text,
