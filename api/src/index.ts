@@ -3,6 +3,7 @@ import TranslationClient from "./clients/translation";
 import PokeClient from "./clients/pokeapi";
 import searchHandler from "./handlers/search";
 import { Clients } from "./handlers/index.types";
+import cache from "./cache";
 import cors from "cors";
 
 const config = {
@@ -35,7 +36,7 @@ api.use("/health/ping", (req, res) => {
   res.send("pong");
 });
 
-api.use("/search", searchHandler.bind(null, clients));
+api.use("/search", cache, searchHandler.bind(null, clients));
 
 api.listen(config.port, () => {
   console.log(`Server started at: \n`);
