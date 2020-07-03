@@ -7,22 +7,22 @@ const handleError = (res: Response, code: number, message: string) => {
 };
 
 const searchHandler: Handler = async ({ poke, translate }, req, res) => {
-  const species = req.query["pokemon"];
+  const speciesName = req.query["pokemon"];
 
-  if (typeof species !== "string") {
+  if (typeof speciesName !== "string") {
     return handleError(res, 400, 'Missing "pokemon" parameter');
   }
 
-  const [pokeError, flavorText] = await poke.getSpecies(species);
+  const [pokeError, pokemon] = await poke.getSpecies(speciesName);
 
   if (pokeError) {
     return handleError(res, 404, `Pokemon Error: ${pokeError.message}`);
-  } else if (!flavorText) {
+  } else if (!pokemon) {
     return handleError(res, 500, "Pokemon Error");
   }
 
   const [translationError, translatedText] = await translate.shakespeare(
-    flavorText.description
+    pokemon.description
   );
 
   if (translationError) {
@@ -33,7 +33,7 @@ const searchHandler: Handler = async ({ poke, translate }, req, res) => {
     );
   }
 
-  res.send(translatedText);
+  res.send({ ...pokemon, description: translatedText });
 };
 
 export default searchHandler;

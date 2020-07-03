@@ -12,7 +12,7 @@ const mockPokeClient = {
     .fn()
     .mockResolvedValue([
       ,
-      { name: "charizard", description: mockedDescription },
+      { id: 6, name: "charizard", description: mockedDescription },
     ]),
 };
 
@@ -70,6 +70,10 @@ describe("Search handler", () => {
     expect(mockTranslationClient.shakespeare).toHaveBeenCalledWith(
       mockedDescription
     );
-    expect(res.send).toHaveBeenCalledWith(mockedTranslation);
+    expect(res.send).toHaveBeenCalledWith({
+      id: 6,
+      name: "charizard",
+      description: mockedTranslation,
+    });
   });
 });
