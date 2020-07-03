@@ -32,7 +32,7 @@ describe("Search handler", () => {
     const mockError = "No veo ese pokemon";
 
     const res: Response = { status: jest.fn(), send: jest.fn() } as any;
-    const req: Request = { query: { pokemon: "charizard" } } as any;
+    const req: Request = { params: { pokemon: "charizard" } } as any;
 
     mockPokeClient.getSpecies.mockResolvedValueOnce([new Error(mockError)]);
 
@@ -47,7 +47,7 @@ describe("Search handler", () => {
     const mockError = "No dice";
 
     const res: Response = { status: jest.fn(), send: jest.fn() } as any;
-    const req: Request = { query: { pokemon: "charizard" } } as any;
+    const req: Request = { params: { pokemon: "charizard" } } as any;
 
     mockTranslationClient.shakespeare.mockResolvedValueOnce([
       new Error(mockError),
@@ -62,7 +62,7 @@ describe("Search handler", () => {
     expect.assertions(3);
 
     const res: Response = { send: jest.fn() } as any;
-    const req: Request = { query: { pokemon: "charizard" } } as any;
+    const req: Request = { params: { pokemon: "charizard" } } as any;
 
     await search(req, res, {} as any);
 

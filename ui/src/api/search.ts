@@ -6,7 +6,7 @@ export interface Pokemon {
 
 export const search = async (query: string): Promise<Pokemon> => {
   const response = await fetch(
-    `${process.env.REACT_APP_API_URL}search?pokemon=${query}`
+    `${process.env.REACT_APP_API_URL}pokemon/${query}`
   );
 
   if (response.status === 200) {

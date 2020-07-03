@@ -7,7 +7,7 @@ const handleError = (res: Response, code: number, message: string) => {
 };
 
 const searchHandler: Handler = async ({ poke, translate }, req, res) => {
-  const speciesName = req.query["pokemon"];
+  const speciesName = req.params["pokemon"];
 
   if (typeof speciesName !== "string") {
     return handleError(res, 400, 'Missing "pokemon" parameter');

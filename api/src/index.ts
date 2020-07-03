@@ -36,7 +36,7 @@ api.use("/health/ping", (req, res) => {
   res.send("pong");
 });
 
-api.use("/search", cache, searchHandler.bind(null, clients));
+api.use("/pokemon/:pokemon", cache, searchHandler.bind(null, clients));
 
 api.listen(config.port, () => {
   console.log(`Server started at: \n`);
