@@ -14,14 +14,12 @@ const Icon = styled.span`
 `;
 
 export default ({ isFavourite, toggle }: Props) => {
-  const label = isFavourite
-    ? "click to remove from favourites"
-    : "click to add to favourites";
+  const label = isFavourite ? "remove from favourites" : "add to favourites";
 
-  const icon = isFavourite ? "🔴" : "⚪️";
+  const icon = isFavourite ? "🌟" : "🥔";
 
   return (
-    <Icon role="img" aria-label={label} onClick={toggle}>
+    <Icon role="img" aria-label={label} title={label} onClick={toggle}>
       {icon}
     </Icon>
   );

@@ -1,15 +1,29 @@
-export const search = async (query: string) => {
+export interface Pokemon {
+  id: number;
+  name: string;
+  description: string;
+}
+
+export const search = async (query: string): Promise<Pokemon> => {
   const response = await fetch(
     `${process.env.REACT_APP_API_URL}search?pokemon=${query}`
   );
 
   if (response.status === 200) {
     try {
-      return await response.text();
+      return await response.json();
     } catch (e) {
-      return "No entiendo la descripción";
+      return {
+        id: -1,
+        name: "Error",
+        description: "No entiendo la descripción",
+      };
     }
   } else {
-    return `Error: ${response.statusText}`;
+    return {
+      id: -1,
+      name: "Error",
+      description: `Error: ${response.statusText}`,
+    };
   }
 };
