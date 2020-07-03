@@ -5,6 +5,7 @@ import styled from "styled-components";
 import SearchResult from "./components/search/SearchResult";
 import { search as searchRequest } from "./api/search";
 import Favourites from "./components/favourites/Favourites";
+import Loading from "./components/loading/Loading";
 
 const AppWrapper = styled.div`
   background: #bada55;
@@ -38,13 +39,21 @@ function App() {
   const [favourites, setFavourites] = useState(new Set<string>());
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResult, setSearchResult] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!searchQuery.trim()) return;
+    setLoading(true);
 
-    searchRequest(searchQuery).then((result) => {
-      setSearchResult(result);
-    });
+    searchRequest(searchQuery.toLocaleLowerCase())
+      .then((result) => {
+        setSearchResult(result);
+        setLoading(false);
+      })
+      .catch((e) => {
+        setSearchResult("Something went wrong, try again later");
+        setLoading(false);
+      });
   }, [searchQuery]);
 
   const toggleFavourite = (pokemon: string) =>
@@ -66,7 +75,7 @@ function App() {
         <Card>
           <Favourites favourites={favourites} onClick={setSearchQuery} />
           <Search query={searchQuery} onSubmit={setSearchQuery} />
-          {searchResult && (
+          {searchResult && !loading && (
             <SearchResult
               description={searchResult}
               isFavourite={favourites.has(searchQuery.toLowerCase())}
@@ -74,6 +83,7 @@ function App() {
               toggleFavourite={toggleFavourite}
             />
           )}
+          {loading && <Loading />}
         </Card>
       </Content>
     </AppWrapper>
