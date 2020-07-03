@@ -3,7 +3,7 @@ import { Handler } from "express";
 
 const fn: Handler = (req, res, next) => {
   const prefix = "http";
-  const key = `${prefix}${req.url}`;
+  const key = `${prefix}${req.originalUrl}`;
   const cachedValue = cache.get(key);
 
   if (cachedValue) {
