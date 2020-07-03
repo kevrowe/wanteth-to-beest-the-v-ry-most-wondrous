@@ -35,11 +35,21 @@ const Card = styled.div`
   }
 `;
 
+const localFavString = localStorage.getItem("favs");
+const localFavs =
+  localFavString && localFavString.length > 0 && JSON.parse(localFavString);
+
 function App() {
-  const [favourites, setFavourites] = useState(new Set<string>());
+  const [favourites, setFavourites] = useState(new Set<string>(localFavs));
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResult, setSearchResult] = useState({} as Pokemon);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {}, [favourites.size]);
+
+  useEffect(() => {
+    localStorage.setItem("favs", JSON.stringify(Array.from(favourites)));
+  }, [favourites]);
 
   useEffect(() => {
     if (!searchQuery.trim()) return;
